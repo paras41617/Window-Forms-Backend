@@ -15,7 +15,8 @@ Ensure you have the following installed:
 
    ```bash
    git clone https://github.com/paras41617/Window-Forms-Backend
-   cd Window-Forms-Backend
+   Extract the folder and go to the root of the project (the directory that contains the src folder)
+   cd Window-Forms-Backend-master
 
 2. **Install the packages:**
 
