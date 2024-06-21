@@ -8,6 +8,15 @@ const dbPath = './db.json';
 
 app.use(bodyParser.json());
 
+interface Submission {
+    index:string
+    name: string;
+    email: string;
+    phone: string;
+    github_link: string;
+    stopwatch_time: string;
+}
+
 // Initialize db.json if it doesn't exist or is invalid
 try {
     if (!fs.existsSync(dbPath) || !Array.isArray(JSON.parse(fs.readFileSync(dbPath, 'utf8')))) {
@@ -102,6 +111,23 @@ app.put('/edit', (req, res) => {
     } else {
         res.status(404).send({ error: 'Index out of range' });
     }
+});
+
+// Search endpoint by email
+app.get('/search', (req, res) => {
+    const { email } = req.query;
+
+    // Validate email
+    if (!email || typeof email !== 'string') {
+        return res.status(400).send({ error: 'Invalid or missing email parameter' });
+    }
+
+    const submissions: Submission[] = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+    const filteredSubmissions = submissions
+        .map((submission, index) => ({ submission, index })) // Map each submission to include its index
+        .filter(item => item.submission.email === email); // Filter by email
+
+    res.send(filteredSubmissions);
 });
 
 app.listen(port, () => {

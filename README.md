@@ -87,3 +87,11 @@ Ensure you have the following installed:
    Deletes a submission by index.
 
    Query parameter - index: Index of the submission to delete.
+
+6. **Search Endpoint:**
+
+   ```bash
+   GET /search
+   Searches a submission by email.
+
+   Query parameter - email: email of the submission to find.
