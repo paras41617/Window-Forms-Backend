@@ -1,5 +1,3 @@
-// src/index.ts
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import fs from 'fs';
@@ -19,11 +17,6 @@ try {
     fs.writeFileSync(dbPath, JSON.stringify([]));
 }
 
-// // Initialize db.json if it doesn't exist
-// if (!fs.existsSync(dbPath)) {
-//     fs.writeFileSync(dbPath, JSON.stringify([]));
-// }
-
 // Ping endpoint
 app.get('/ping', (req, res) => {
     res.send(true);
@@ -38,6 +31,7 @@ app.post('/submit', (req, res) => {
     res.send({ success: true });
 });
 
+// Read endpoint
 app.get('/read', (req, res) => {
     const { index } = req.query;
 
@@ -59,26 +53,6 @@ app.get('/read', (req, res) => {
         res.status(404).send({ error: 'Index out of range' });
     }
 });
-
-
-// Read endpoint
-// app.get('/read', (req, res) => {
-//     const { index } = req.query;
-
-//     // Validate index
-//     if (index === undefined || isNaN(Number(index))) {
-//         return res.status(400).send({ error: 'Invalid or missing index' });
-//     }
-
-//     const submissions = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-//     const idx = parseInt(index as string, 10);
-
-//     if (idx >= 0 && idx < submissions.length) {
-//         res.send(submissions[idx]);
-//     } else {
-//         res.status(404).send({ error: 'Index out of range' });
-//     }
-// });
 
 // Delete endpoint
 app.delete('/delete', (req, res) => {
